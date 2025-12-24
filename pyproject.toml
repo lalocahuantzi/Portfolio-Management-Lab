@@ -1,0 +1,16 @@
+[project]
+name = "portfolio-management-lab"
+version = "0.1.0"
+description = "Personal portfolio management project"
+requires-python = ">=3.10"
+
+dependencies = [
+  "numpy",
+  "pandas",
+  "yfinance",
+  "matplotlib"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
