@@ -2,6 +2,8 @@
 name = "portfolio-management-lab"
 version = "0.1.0"
 description = "Personal portfolio management project"
+readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.10"
 
 dependencies = [
@@ -11,6 +13,15 @@ dependencies = [
   "matplotlib"
 ]
 
+[project.urls]
+Repository = "https://github.com/lalocahuantzi/Portfolio-Management-Lab"
+
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
