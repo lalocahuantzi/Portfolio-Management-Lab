@@ -1,48 +1,38 @@
 import pandas as pd
 import numpy as np
 
-def simple_returns(df):
+def compute_returns(df,method="simple",dropna=None):
     '''
-    Calculates simple (arithmetic) returns using a DataFrame with closing prices of different securities.
+    Computes simple (arithmetic) or logarithmic returns using a DataFrame with closing prices of different securities.
 
     Parameters
     --------------------
     df : pd.DataFrame
-        DataFrame of price series where each column represents a security. 
+        DataFrame of price series where each column represents a security.
+    method : str
+        The type of returns calculation method, the valid options are:
+            - "simple"
+            - "log"
+    dropna : str
+        Specifies how missing values should be removed after return computation, the valid options are:
+            - "all"
+            - "any"
 
     Returns
     --------------------
     pd.DataFrame
-        DataFrame of arithmetic returns, aligned by date.
+        DataFrame of simple (arithmetic) or logarithmic returns, aligned by date.
         Columns correspond to securities, index corresponds to dates.
     '''
-    rend = pd.DataFrame()
-    lista_rend = df.columns.tolist()
-    for i in range(len(lista_rend)):
-        nombre_col = str(lista_rend[i])
-        rend[nombre_col] = df[lista_rend[i]] / df[lista_rend[i]].shift(1) - 1
-    rend = rend.dropna(how='all')
-    return rend
+    if method == "simple":
+        ret = df.pct_change(fill_method=None)
+    elif method == "log":
+        ret = np.log(df/df.shift(1))
+    else:
+        raise ValueError("Method must be 'simple' or 'log'")
 
-def log_returns(df):
-    '''
-    Calculates logarithmic returns using a DataFrame with closing prices of different securities.
+    if dropna in ["all","any"]:
+        ret = ret.dropna(how=dropna)
 
-    Parameters
-    --------------------
-    df : pd.DataFrame
-        DataFrame of price series where each column represents a security. 
+    return ret
 
-    Returns
-    --------------------
-    pd.DataFrame
-        DataFrame of logarithmic returns, aligned by date.
-        Columns correspond to securities, index corresponds to dates.
-    '''
-    rend = pd.DataFrame()
-    lista_rend = df.columns.tolist()
-    for i in range(len(lista_rend)):
-        nombre_col = str(lista_rend[i])
-        rend[nombre_col] = np.log(df[lista_rend[i]] / df[lista_rend[i]].shift(1))
-    rend = rend.dropna(how='all')
-    return rend
