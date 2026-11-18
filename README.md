@@ -20,7 +20,6 @@ At this stage, the project includes:
     │       ├── data.py
     │       └── returns.py
     ├── pyproject.toml
-    ├── setup.cfg
     └── README.md
 
 ## Usage
