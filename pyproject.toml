@@ -10,7 +10,7 @@ dependencies = [
   "numpy",
   "pandas",
   "yfinance",
-  "matplotlib"
+  "matplotlib",
   "seaborn"
 ]
 
